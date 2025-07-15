@@ -50,3 +50,13 @@ class NodesApi(APIView):
         data = {node.uri: node.content for node in nodes}
 
         return self.render_to_json(data)
+
+    def get(self, request):
+        nodes = []
+        for uri, default in json.loads(request.body).items():
+            node = cio.get(uri, default=default)
+            nodes.append(node)
+
+        data = {node.uri: node.content for node in nodes}
+
+        return self.render_to_json(data)
