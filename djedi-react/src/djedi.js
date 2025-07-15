@@ -459,7 +459,7 @@ export class Djedi {
       result[key] = value === undefined ? null : value;
       return result;
     }, {});
-    return this._post("/nodes/", nodesWithNull).then(results => {
+    return this._retrieve("/nodes/", nodesWithNull).then(results => {
       if (typeof results === "object" && results != null) {
         this.addNodes(results);
         return results;
@@ -482,10 +482,10 @@ export class Djedi {
     return fetch(url, options);
   }
 
-  _post(passedUrl, data) {
+  _retrieve(passedUrl, data) {
     const url = `${this.options.baseUrl}${passedUrl}`;
     return this._fetch(url, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
